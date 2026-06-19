@@ -1,0 +1,1426 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="theme-color" content="#2d5016">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="露營清點">
+<meta name="description" content="露營用品清點助手，不再漏帶裝備">
+<link rel="manifest" href="data:application/json;base64,eyJuYW1lIjogIumcsueHn+a4hem7nuWKqeaJiyIsICJzaG9ydF9uYW1lIjogIumcsueHn+a4hem7niIsICJzdGFydF91cmwiOiAiLiIsICJkaXNwbGF5IjogInN0YW5kYWxvbmUiLCAiYmFja2dyb3VuZF9jb2xvciI6ICIjZjVmMGU4IiwgInRoZW1lX2NvbG9yIjogIiMyZDUwMTYiLCAib3JpZW50YXRpb24iOiAicG9ydHJhaXQiLCAiaWNvbnMiOiBbeyJzcmMiOiAiZGF0YTppbWFnZS9zdmcreG1sO2Jhc2U2NCxQSE4yWnlCNGJXeHVjejBpYUhSMGNEb3ZMM2QzZHk1M015NXZjbWN2TWpBd01DOXpkbWNpSUhkcFpIUm9QU0l4T1RJaUlHaGxhV2RvZEQwaU1Ua3lJaUIyYVdWM1FtOTRQU0l3SURBZ01Ua3lJREU1TWlJK1BISmxZM1FnZDJsa2RHZzlJakU1TWlJZ2FHVnBaMmgwUFNJeE9USWlJSEo0UFNJeU5DSWdabWxzYkQwaUl6SmtOVEF4TmlJdlBqeDBaWGgwSUhnOUlqazJJaUI1UFNJeE1qQWlJR1p2Ym5RdGMybDZaVDBpT1RBaUlIUmxlSFF0WVc1amFHOXlQU0p0YVdSa2JHVWlJR1pwYkd3OUluZG9hWFJsSWo3d240K2RQQzkwWlhoMFBqd3ZjM1puUGc9PSIsICJzaXplcyI6ICIxOTJ4MTkyIiwgInR5cGUiOiAiaW1hZ2Uvc3ZnK3htbCJ9LCB7InNyYyI6ICJkYXRhOmltYWdlL3N2Zyt4bWw7YmFzZTY0LFBITjJaeUI0Yld4dWN6MGlhSFIwY0RvdkwzZDNkeTUzTXk1dmNtY3ZNakF3TUM5emRtY2lJSGRwWkhSb1BTSTFNVElpSUdobGFXZG9kRDBpTlRFeUlpQjJhV1YzUW05NFBTSXdJREFnTlRFeUlEVXhNaUkrUEhKbFkzUWdkMmxrZEdnOUlqVXhNaUlnYUdWcFoyaDBQU0kxTVRJaUlISjRQU0kyTkNJZ1ptbHNiRDBpSXpKa05UQXhOaUl2UGp4MFpYaDBJSGc5SWpJMU5pSWdlVDBpTXpJd0lpQm1iMjUwTFhOcGVtVTlJakkwTUNJZ2RHVjRkQzFoYm1Ob2IzSTlJbTFwWkdSc1pTSWdabWxzYkQwaWQyaHBkR1VpUHZDZmo1MDhMM1JsZUhRK1BDOXpkbWMrIiwgInNpemVzIjogIjUxMng1MTIiLCAidHlwZSI6ICJpbWFnZS9zdmcreG1sIn1dfQ==">
+<title>🏕️ 露營清點</title>
+<style>
+:root {
+    --bg: #f5f0e8;
+    --card: #ffffff;
+    --primary: #2d5016;
+    --primary-light: #4a7c2e;
+    --accent: #c17817;
+    --accent-light: #d9953a;
+    --text: #2c2416;
+    --text-light: #6b5d4d;
+    --border: #d4c9b8;
+    --danger: #a03030;
+    --success: #2d5016;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft JhengHei", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    padding-bottom: 100px;
+}
+
+/* 頂部 */
+.header {
+    background: linear-gradient(135deg, #2d5016 0%, #4a7c2e 100%);
+    color: white;
+    padding: 24px 20px 32px;
+    position: relative;
+    overflow: hidden;
+}
+.header::before {
+    content: "🌲🌲🌲🏕️🌲🌲🌲";
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    font-size: 24px;
+    opacity: 0.15;
+    letter-spacing: 8px;
+    white-space: nowrap;
+    animation: scrollTrees 20s linear infinite;
+}
+@keyframes scrollTrees {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
+.header h1 {
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    position: relative;
+    z-index: 1;
+}
+.header p {
+    font-size: 13px;
+    opacity: 0.85;
+    margin-top: 4px;
+    position: relative;
+    z-index: 1;
+}
+
+/* 進度區 */
+.progress-section {
+    background: var(--card);
+    margin: -20px 16px 16px;
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    position: relative;
+    z-index: 2;
+}
+.progress-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+.progress-label {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text);
+}
+.progress-count {
+    font-size: 13px;
+    color: var(--text-light);
+}
+.progress-count span {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--primary);
+}
+.progress-bar-bg {
+    height: 10px;
+    background: #e8e0d4;
+    border-radius: 5px;
+    overflow: hidden;
+}
+.progress-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--primary) 0%, var(--primary-light) 100%);
+    border-radius: 5px;
+    transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+}
+.progress-bar-fill::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 20px;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3));
+}
+.progress-status {
+    margin-top: 10px;
+    font-size: 12px;
+    color: var(--text-light);
+    text-align: center;
+}
+
+/* 快速操作 */
+.quick-actions {
+    display: flex;
+    gap: 8px;
+    padding: 0 16px;
+    margin-bottom: 16px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+}
+.quick-actions::-webkit-scrollbar { display: none; }
+
+.chip {
+    flex-shrink: 0;
+    padding: 8px 16px;
+    border-radius: 20px;
+    border: 1.5px solid var(--border);
+    background: var(--card);
+    font-size: 13px;
+    color: var(--text-light);
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+}
+.chip:hover, .chip:active {
+    border-color: var(--primary);
+    color: var(--primary);
+    background: #f0f5ea;
+}
+.chip.active {
+    background: var(--primary);
+    color: white;
+    border-color: var(--primary);
+}
+
+/* 分類卡片 */
+.category {
+    background: var(--card);
+    margin: 0 16px 12px;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    border: 1px solid var(--border);
+}
+.category-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 16px;
+    background: linear-gradient(90deg, #faf8f4 0%, #f5f0e8 100%);
+    border-bottom: 1px solid var(--border);
+    cursor: pointer;
+    user-select: none;
+}
+.category-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text);
+}
+.category-icon {
+    font-size: 20px;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+}
+.category-count {
+    font-size: 12px;
+    color: var(--text-light);
+    background: #e8e0d4;
+    padding: 2px 8px;
+    border-radius: 10px;
+}
+.category-toggle {
+    font-size: 12px;
+    color: var(--text-light);
+    transition: transform 0.3s;
+    margin-left: 8px;
+}
+.category.collapsed .category-toggle {
+    transform: rotate(-90deg);
+}
+.category.collapsed .category-body {
+    display: none;
+}
+
+.category-body {
+    padding: 4px 0;
+}
+
+/* 物品項 */
+.item {
+    display: flex;
+    align-items: center;
+    padding: 12px 16px;
+    gap: 12px;
+    transition: background 0.15s;
+    position: relative;
+}
+.item:active {
+    background: #f5f0e8;
+}
+.item.checked .item-name {
+    text-decoration: line-through;
+    color: var(--text-light);
+    opacity: 0.6;
+}
+.item.checked .item-check {
+    background: var(--success);
+    border-color: var(--success);
+}
+.item.checked .item-check::after {
+    opacity: 1;
+}
+
+.item-check {
+    width: 22px;
+    height: 22px;
+    border: 2px solid var(--border);
+    border-radius: 6px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    cursor: pointer;
+    position: relative;
+}
+.item-check::after {
+    content: "✓";
+    color: white;
+    font-size: 13px;
+    font-weight: 700;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.item-name {
+    flex: 1;
+    font-size: 15px;
+    transition: all 0.2s;
+    word-break: break-word;
+}
+
+.item-delete {
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #c9b8a8;
+    font-size: 16px;
+    cursor: pointer;
+    opacity: 0;
+    transition: all 0.2s;
+}
+.item:hover .item-delete, .item:active .item-delete {
+    opacity: 1;
+}
+.item-delete:hover, .item-delete:active {
+    background: #f5e8e8;
+    color: var(--danger);
+}
+
+/* 新增物品輸入 */
+.add-item-row {
+    display: flex;
+    gap: 8px;
+    padding: 8px 16px 12px;
+    align-items: center;
+}
+.add-item-input {
+    flex: 1;
+    padding: 8px 12px;
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    font-size: 14px;
+    background: #faf8f4;
+    outline: none;
+    transition: border-color 0.2s;
+}
+.add-item-input:focus {
+    border-color: var(--primary-light);
+    background: white;
+}
+.add-item-btn {
+    padding: 8px 14px;
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+}
+.add-item-btn:active {
+    transform: scale(0.95);
+    background: var(--primary-light);
+}
+
+/* 新增分類 */
+.add-category-btn {
+    margin: 8px 16px 20px;
+    padding: 14px;
+    background: var(--card);
+    border: 2px dashed var(--border);
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    color: var(--text-light);
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+.add-category-btn:hover, .add-category-btn:active {
+    border-color: var(--primary-light);
+    color: var(--primary);
+    background: #f0f5ea;
+}
+
+/* 底部模板列 */
+.bottom-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: white;
+    border-top: 1px solid var(--border);
+    padding: 12px 16px calc(12px + env(safe-area-inset-bottom));
+    display: flex;
+    gap: 10px;
+    z-index: 100;
+    box-shadow: 0 -4px 20px rgba(0,0,0,0.06);
+}
+
+.template-select {
+    flex: 1;
+    padding: 10px 12px;
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    font-size: 14px;
+    background: #faf8f4;
+    outline: none;
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236b5d4d' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    padding-right: 30px;
+}
+
+.action-btn {
+    padding: 10px 16px;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s;
+    white-space: nowrap;
+}
+.action-btn:active { transform: scale(0.95); }
+.btn-reset {
+    background: #f5e8e8;
+    color: var(--danger);
+}
+.btn-save {
+    background: var(--primary);
+    color: white;
+}
+
+/* 彈窗 */
+.modal-overlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 1000;
+    display: none;
+    justify-content: center;
+    align-items: flex-end;
+    padding-bottom: env(safe-area-inset-bottom);
+}
+.modal-overlay.show { display: flex; }
+.modal-box {
+    background: white;
+    width: 100%;
+    max-width: 400px;
+    border-radius: 20px 20px 0 0;
+    padding: 24px 20px 32px;
+    animation: slideUp 0.3s ease;
+}
+@keyframes slideUp {
+    from { transform: translateY(100%); }
+    to { transform: translateY(0); }
+}
+.modal-title {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    text-align: center;
+}
+.modal-input {
+    width: 100%;
+    padding: 12px;
+    border: 1.5px solid var(--border);
+    border-radius: 12px;
+    font-size: 16px;
+    margin-bottom: 12px;
+    outline: none;
+}
+.modal-input:focus { border-color: var(--primary-light); }
+.modal-btns {
+    display: flex;
+    gap: 10px;
+}
+.modal-btns button {
+    flex: 1;
+    padding: 12px;
+    border-radius: 12px;
+    border: none;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+}
+.btn-cancel { background: #f0ebe4; color: var(--text); }
+.btn-confirm { background: var(--primary); color: white; }
+
+/* 提示 */
+.toast {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.9);
+    background: rgba(0,0,0,0.8);
+    color: white;
+    padding: 12px 24px;
+    border-radius: 24px;
+    font-size: 14px;
+    z-index: 2000;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.3s;
+}
+.toast.show {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+/* 空狀態 */
+.empty-state {
+    text-align: center;
+    padding: 40px 20px;
+    color: var(--text-light);
+}
+.empty-state-icon {
+    font-size: 48px;
+    margin-bottom: 12px;
+    opacity: 0.5;
+}
+
+/* 動畫 */
+@keyframes checkPop {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
+.item-check.pop {
+    animation: checkPop 0.2s ease;
+}
+
+/* 圖示選擇器 */
+.icon-picker {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 8px;
+    margin-bottom: 16px;
+    padding: 4px;
+}
+.icon-option {
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    background: #faf8f4;
+    border: 2px solid var(--border);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+    user-select: none;
+}
+.icon-option:hover, .icon-option:active {
+    border-color: var(--primary-light);
+    background: #f0f5ea;
+    transform: scale(1.05);
+}
+.icon-option.active {
+    border-color: var(--primary);
+    background: #e8f0e0;
+    box-shadow: 0 0 0 2px rgba(45,80,22,0.2);
+}
+
+/* 模板儲存槽 */
+.template-slots {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.template-slot {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px;
+    background: #faf8f4;
+    border: 2px solid var(--border);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+}
+.template-slot:hover, .template-slot:active {
+    border-color: var(--primary-light);
+    background: #f0f5ea;
+}
+.template-slot .slot-icon {
+    font-size: 28px;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    flex-shrink: 0;
+}
+.template-slot .slot-info {
+    flex: 1;
+    min-width: 0;
+}
+.template-slot .slot-name {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 2px;
+}
+.template-slot .slot-status {
+    font-size: 12px;
+    color: var(--text-light);
+}
+.template-slot .slot-status.saved {
+    color: var(--primary);
+}
+.template-slot .slot-edit-hint {
+    font-size: 11px;
+    color: #999;
+    background: #e8e0d4;
+    padding: 2px 8px;
+    border-radius: 8px;
+    white-space: nowrap;
+}
+
+/* 模板圖示選擇器 */
+#template-icon-picker {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 8px;
+    margin-bottom: 16px;
+    padding: 4px;
+}
+#template-icon-picker .icon-option {
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    background: #faf8f4;
+    border: 2px solid var(--border);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+    user-select: none;
+}
+#template-icon-picker .icon-option:hover, 
+#template-icon-picker .icon-option:active {
+    border-color: var(--primary-light);
+    background: #f0f5ea;
+    transform: scale(1.05);
+}
+#template-icon-picker .icon-option.active {
+    border-color: var(--primary);
+    background: #e8f0e0;
+    box-shadow: 0 0 0 2px rgba(45,80,22,0.2);
+}
+
+/* 響應式 */
+@media (min-width: 768px) {
+    body { max-width: 600px; margin: 0 auto; }
+    .bottom-bar { max-width: 600px; left: 50%; transform: translateX(-50%); }
+}
+</style>
+<style>
+/* PWA: Install banner */
+.install-banner {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    background: #2d5016;
+    color: white;
+    padding: 12px 16px;
+    padding-top: max(12px, env(safe-area-inset-top));
+    z-index: 2000;
+    display: none;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    font-size: 14px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.2);
+}
+.install-banner.show { display: flex; }
+.install-banner-text { flex: 1; line-height: 1.4; }
+.install-banner-btn {
+    background: white;
+    color: #2d5016;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    flex-shrink: 0;
+    min-width: 60px;
+}
+.install-banner-close {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    width: 32px; height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+/* PWA: Safe area */
+.safe-area-top {
+    height: env(safe-area-inset-top);
+    background: #2d5016;
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 99;
+}
+
+body { padding-top: 0; }
+
+@media (min-width: 768px) {
+    body { max-width: 600px; margin: 0 auto; }
+    .bottom-bar { max-width: 600px; left: 50%; transform: translateX(-50%); }
+    .install-banner { max-width: 600px; left: 50%; transform: translateX(-50%); }
+}
+</style>
+<base target="_blank">
+</head>
+<body>
+
+<div class="safe-area-top"></div>
+
+<div class="install-banner" id="install-banner">
+    <span class="install-banner-text" id="install-text">📲 加入主畫面，離線使用</span>
+    <button class="install-banner-btn" id="install-btn" onclick="handleInstallClick()">安裝</button>
+    <button class="install-banner-close" onclick="dismissInstall()">✕</button>
+</div>
+
+<div class="header">
+    <h1>🏕️ 露營清點助手</h1>
+    <p>出發前逐項確認，不再漏帶裝備</p>
+</div>
+
+<div class="progress-section">
+    <div class="progress-top">
+        <span class="progress-label">📦 裝備準備進度</span>
+        <span class="progress-count"><span id="checked-count">0</span> / <span id="total-count">0</span></span>
+    </div>
+    <div id="current-template-display" style="margin-bottom: 10px; font-size: 13px; color: #6b5d4d; display: none;">
+        <span style="background: #e8e0d4; padding: 3px 10px; border-radius: 10px; display: inline-flex; align-items: center; gap: 4px;">
+            <span id="template-icon">📋</span>
+            <span id="template-name">自訂清單</span>
+        </span>
+    </div>
+    <div class="progress-bar-bg">
+        <div class="progress-bar-fill" id="progress-bar" style="width: 0%"></div>
+    </div>
+    <div class="progress-status" id="progress-status">開始打包吧！</div>
+</div>
+
+<div class="quick-actions" id="quick-actions">
+    <div class="chip active" onclick="filterView('all')">全部</div>
+    <div class="chip" onclick="filterView('unchecked')">未帶</div>
+    <div class="chip" onclick="filterView('checked')">已帶</div>
+    <div class="chip" onclick="expandAll()">展開</div>
+    <div class="chip" onclick="collapseAll()">收合</div>
+</div>
+
+<div id="categories-container"></div>
+
+<div class="add-category-btn" onclick="showAddCategory()">
+    <span>➕</span> 新增分類
+</div>
+
+<div class="bottom-bar">
+    <select class="template-select" id="template-select" onchange="loadTemplate(this.value)">
+        <option value="">📋 載入預設模板...</option>
+        <option value="weekend">週末露營（2天1夜）</option>
+        <option value="daytrip">單日野餐</option>
+        <option value="heavy">重装登山露營</option>
+        <option value="family">親子露營</option>
+        <option value="winter">冬季露營</option>
+        <option value="beach">海邊露營</option>
+        <option disabled>──────────</option>
+        <option value="custom1">📁 自訂模板1</option>
+        <option value="custom2">📁 自訂模板2</option>
+        <option value="custom3">📁 自訂模板3</option>
+    </select>
+    <button class="action-btn btn-reset" onclick="resetAll()">↺ 重置</button>
+    <button class="action-btn btn-save" onclick="showSaveTemplate()">💾 存模板</button>
+</div>
+
+<div class="modal-overlay" id="modal-cat">
+    <div class="modal-box">
+        <div class="modal-title">新增分類</div>
+        <div class="icon-picker" id="icon-picker">
+            <div class="icon-option active" data-icon="📦" onclick="selectIcon(this)">📦</div>
+            <div class="icon-option" data-icon="🎣" onclick="selectIcon(this)">🎣</div>
+            <div class="icon-option" data-icon="📷" onclick="selectIcon(this)">📷</div>
+            <div class="icon-option" data-icon="🚲" onclick="selectIcon(this)">🚲</div>
+            <div class="icon-option" data-icon="🏊" onclick="selectIcon(this)">🏊</div>
+            <div class="icon-option" data-icon="🎸" onclick="selectIcon(this)">🎸</div>
+            <div class="icon-option" data-icon="📚" onclick="selectIcon(this)">📚</div>
+            <div class="icon-option" data-icon="🎨" onclick="selectIcon(this)">🎨</div>
+            <div class="icon-option" data-icon="⚽" onclick="selectIcon(this)">⚽</div>
+            <div class="icon-option" data-icon="🎯" onclick="selectIcon(this)">🎯</div>
+            <div class="icon-option" data-icon="🧘" onclick="selectIcon(this)">🧘</div>
+            <div class="icon-option" data-icon="🍺" onclick="selectIcon(this)">🍺</div>
+        </div>
+        <input type="text" class="modal-input" id="cat-input" placeholder="分類名稱，例如：釣魚裝備" maxlength="20">
+        <div class="modal-btns">
+            <button class="btn-cancel" onclick="closeModal('modal-cat')">取消</button>
+            <button class="btn-confirm" onclick="confirmAddCategory()">確認</button>
+        </div>
+    </div>
+</div>
+
+<div class="modal-overlay" id="modal-item">
+    <div class="modal-box">
+        <div class="modal-title" id="modal-item-title">新增物品</div>
+        <input type="text" class="modal-input" id="item-input" placeholder="例如：頭燈" maxlength="30">
+        <div class="modal-btns">
+            <button class="btn-cancel" onclick="closeModal('modal-item')">取消</button>
+            <button class="btn-confirm" onclick="confirmAddItem()">確認</button>
+        </div>
+    </div>
+</div>
+
+<div class="modal-overlay" id="modal-save-template">
+    <div class="modal-box">
+        <div class="modal-title">💾 儲存為新模板</div>
+        <div class="template-slots" id="template-slots">
+            <div class="template-slot" onclick="prepareSaveSlot('custom1')">
+                <div class="slot-icon" id="slot-icon-1">📁</div>
+                <div class="slot-info">
+                    <div class="slot-name" id="slot-name-1">自訂模板1</div>
+                    <div class="slot-status" id="slot-status-1">空</div>
+                </div>
+                <div class="slot-edit-hint">點擊編輯</div>
+            </div>
+            <div class="template-slot" onclick="prepareSaveSlot('custom2')">
+                <div class="slot-icon" id="slot-icon-2">📁</div>
+                <div class="slot-info">
+                    <div class="slot-name" id="slot-name-2">自訂模板2</div>
+                    <div class="slot-status" id="slot-status-2">空</div>
+                </div>
+                <div class="slot-edit-hint">點擊編輯</div>
+            </div>
+            <div class="template-slot" onclick="prepareSaveSlot('custom3')">
+                <div class="slot-icon" id="slot-icon-3">📁</div>
+                <div class="slot-info">
+                    <div class="slot-name" id="slot-name-3">自訂模板3</div>
+                    <div class="slot-status" id="slot-status-3">空</div>
+                </div>
+                <div class="slot-edit-hint">點擊編輯</div>
+            </div>
+        </div>
+        <div class="modal-btns" style="margin-top:16px;">
+            <button class="btn-cancel" onclick="closeModal('modal-save-template')">取消</button>
+        </div>
+    </div>
+</div>
+
+<div class="modal-overlay" id="modal-edit-template">
+    <div class="modal-box">
+        <div class="modal-title">✏️ 編輯模板</div>
+        <div class="icon-picker" id="template-icon-picker">
+            <div class="icon-option" data-icon="⛺" onclick="selectTemplateIcon(this)">⛺</div>
+            <div class="icon-option" data-icon="🧺" onclick="selectTemplateIcon(this)">🧺</div>
+            <div class="icon-option" data-icon="🏔️" onclick="selectTemplateIcon(this)">🏔️</div>
+            <div class="icon-option" data-icon="👨‍👩‍👧" onclick="selectTemplateIcon(this)">👨‍👩‍👧</div>
+            <div class="icon-option" data-icon="❄️" onclick="selectTemplateIcon(this)">❄️</div>
+            <div class="icon-option" data-icon="🏖️" onclick="selectTemplateIcon(this)">🏖️</div>
+            <div class="icon-option" data-icon="🎣" onclick="selectTemplateIcon(this)">🎣</div>
+            <div class="icon-option" data-icon="📷" onclick="selectTemplateIcon(this)">📷</div>
+            <div class="icon-option" data-icon="🚲" onclick="selectTemplateIcon(this)">🚲</div>
+            <div class="icon-option" data-icon="🏊" onclick="selectTemplateIcon(this)">🏊</div>
+            <div class="icon-option" data-icon="🎸" onclick="selectTemplateIcon(this)">🎸</div>
+            <div class="icon-option" data-icon="📚" onclick="selectTemplateIcon(this)">📚</div>
+            <div class="icon-option" data-icon="🎨" onclick="selectTemplateIcon(this)">🎨</div>
+            <div class="icon-option" data-icon="⚽" onclick="selectTemplateIcon(this)">⚽</div>
+            <div class="icon-option" data-icon="🎯" onclick="selectTemplateIcon(this)">🎯</div>
+            <div class="icon-option" data-icon="🧘" onclick="selectTemplateIcon(this)">🧘</div>
+            <div class="icon-option" data-icon="🍺" onclick="selectTemplateIcon(this)">🍺</div>
+            <div class="icon-option" data-icon="🎮" onclick="selectTemplateIcon(this)">🎮</div>
+        </div>
+        <input type="text" class="modal-input" id="template-name-input" placeholder="模板名稱" maxlength="20">
+        <div class="modal-btns">
+            <button class="btn-cancel" onclick="closeModal('modal-edit-template')">取消</button>
+            <button class="btn-confirm" onclick="confirmSaveTemplate()">確認儲存</button>
+        </div>
+    </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ==================== 預設模板 ====================
+const TEMPLATES = {
+    weekend: [
+        { icon: "⛺", name: "帳篷睡眠", items: ["帳篷","睡袋","防潮墊","充氣枕","營燈","眼罩","耳塞"] },
+        { icon: "🍳", name: "烹飪飲食", items: ["爐頭","瓦斯罐","套鍋","餐具","保溫瓶","食材","調味料","垃圾袋"] },
+        { icon: "💡", name: "照明火源", items: ["頭燈","手電筒","備用電池","打火機","火柴","營火木材"] },
+        { icon: "👕", name: "衣物鞋襪", items: ["排汗內衣","保暖中層","防風外套","雨具","登山鞋","拖鞋","毛帽","手套","換洗衣物"] },
+        { icon: "🧴", name: "急救衛生", items: ["急救包","防蚊液","防曬乳","濕紙巾","衛生紙","牙刷","牙膏","洗面乳"] },
+        { icon: "🔧", name: "工具裝備", items: ["多功能刀","營繩","營釘","槌子","防水袋","地布","天幕"] },
+        { icon: "🎮", name: "娛樂其他", items: ["相機","行動電源","充電線","藍牙喇叭","撲克牌","書籍"] }
+    ],
+    daytrip: [
+        { icon: "🧺", name: "野餐裝備", items: ["野餐墊","保冷袋","冰塊","餐具","紙巾","垃圾袋"] },
+        { icon: "🍱", name: "食物飲料", items: ["三明治","飯糰","水果","零食","飲料","咖啡"] },
+        { icon: "☀️", name: "防曬防蟲", items: ["防曬乳","防蚊液","帽子","太陽眼鏡"] },
+        { icon: "🎲", name: "娛樂", items: ["飛盤","羽毛球","撲克牌","相機","行動電源"] }
+    ],
+    heavy: [
+        { icon: "⛺", name: "睡眠系統", items: ["輕量帳篷","羽絨睡袋","睡墊","充氣枕","地布"] },
+        { icon: "🍳", name: "爐炊系統", items: ["輕量爐頭","鈦杯","鈦鍋","叉匙","濾水器","水袋"] },
+        { icon: "🎒", name: "背負裝備", items: ["登山背包","背包套","登山杖","頭燈","水壺","行動糧"] },
+        { icon: "👕", name: "衣物系統", items: ["排汗內衣","保暖層","風雨衣","羽絨外套","登山鞋","羊毛襪","毛帽","手套"] },
+        { icon: "🧭", name: "導航安全", items: ["地圖","指北針","GPS","哨子","頭燈","備用電池","急救包"] },
+        { icon: "🔧", name: "工具修繕", items: ["多功能刀","膠帶","營繩","快掛","防水袋"] }
+    ],
+    family: [
+        { icon: "⛺", name: "帳篷睡眠", items: ["家庭帳","睡袋x4","充氣床墊","枕頭","小夜燈"] },
+        { icon: "🍳", name: "親子廚房", items: ["烤肉架","炭火","餐具","保溫箱","食材","飲料","零食"] },
+        { icon: "👶", name: "兒童用品", items: ["換洗衣物","尿布","濕紙巾","玩具","圖畫書","防蚊貼"] },
+        { icon: "🎮", name: "全家娛樂", items: ["泡泡水","飛盤","球類","桌遊","藍芽喇叭"] },
+        { icon: "💡", name: "照明安全", items: ["營燈","頭燈","手電筒","急救包","防曬乳"] }
+    ],
+    winter: [
+        { icon: "⛺", name: "冬季帳篷", items: ["四季帳","羽絨睡袋(-10°C)","睡墊","地布","雪釘"] },
+        { icon: "🔥", name: "取暖裝備", items: ["暖爐","一氧化碳偵測器","防火墊","柴火","打火機"] },
+        { icon: "🧥", name: "保暖衣物", items: ["羽絨外套","保暖內層","毛帽","圍脖","厚手套","羊毛襪","雪靴"] },
+        { icon: "☕", name: "熱食熱飲", items: ["保溫瓶","熱可可","即食湯","保溫杯","爐頭","鍋具"] },
+        { icon: "🧴", name: "護理用品", items: ["護唇膏","護手霜","防曬乳","急救包","暖暖包"] }
+    ],
+    beach: [
+        { icon: "🏖️", name: "海灘裝備", items: ["天幕","沙釘","營繩","防水袋","野餐墊"] },
+        { icon: "🏊", name: "水上活動", items: ["泳衣","泳鏡","浮板","救生衣","防水手機袋"] },
+        { icon: "☀️", name: "防曬防暑", items: ["高係數防曬","陽傘","太陽眼鏡","帽子","防蚊液"] },
+        { icon: "🍉", name: "清涼飲食", items: ["保冷箱","冰塊","水果","飲料","啤酒","零食"] },
+        { icon: "🧴", name: "盥洗用品", items: ["浴巾","洗髮精","沐浴乳","換洗衣物","防水袋"] }
+    ]
+};
+
+// ==================== 資料結構 ====================
+let data = {
+    categories: [],
+    filter: 'all',
+    currentTemplate: ''
+};
+let currentAddItemCategory = null;
+let selectedIcon = '📦';
+
+const CUSTOM_TEMPLATES_KEY = 'camping-custom-templates';
+const CUSTOM_TEMPLATE_META_KEY = 'camping-custom-templates-meta';
+
+function getCustomTemplates() {
+    const saved = localStorage.getItem(CUSTOM_TEMPLATES_KEY);
+    return saved ? JSON.parse(saved) : {};
+}
+function getCustomTemplateMeta() {
+    const saved = localStorage.getItem(CUSTOM_TEMPLATE_META_KEY);
+    return saved ? JSON.parse(saved) : {};
+}
+function setCustomTemplate(key, templateData, meta) {
+    const templates = getCustomTemplates();
+    templates[key] = templateData;
+    localStorage.setItem(CUSTOM_TEMPLATES_KEY, JSON.stringify(templates));
+    if (meta) {
+        const allMeta = getCustomTemplateMeta();
+        allMeta[key] = meta;
+        localStorage.setItem(CUSTOM_TEMPLATE_META_KEY, JSON.stringify(allMeta));
+    }
+}
+
+let currentEditSlot = null;
+let selectedTemplateIcon = '⛺';
+
+// ==================== PWA: Service Worker ====================
+if ('serviceWorker' in navigator) {
+    const swCode = `self.addEventListener('install', e => e.waitUntil(self.skipWaiting()));
+self.addEventListener('activate', e => e.waitUntil(self.clients.claim()));
+self.addEventListener('fetch', e => e.respondWith(fetch(e.request).catch(() => new Response('Offline'))));`;
+    navigator.serviceWorker.register(URL.createObjectURL(new Blob([swCode], {type:'application/javascript'}))).catch(()=>{});
+}
+
+// ==================== PWA: Install ====================
+let deferredPrompt = null;
+let installDismissed = localStorage.getItem('install-dismissed');
+
+function getPlatform() {
+    const ua = navigator.userAgent;
+    if (/iPhone|iPad|iPod/.test(ua)) return 'ios';
+    if (/Android/.test(ua)) return 'android';
+    return 'other';
+}
+
+function showInstallBanner() {
+    if (installDismissed) return;
+    const banner = document.getElementById('install-banner');
+    const text = document.getElementById('install-text');
+    const btn = document.getElementById('install-btn');
+    const platform = getPlatform();
+
+    if (platform === 'ios') {
+        text.innerHTML = '📲 Safari 底部分享 →「加入主畫面」';
+        btn.style.display = 'none';
+    } else if (platform === 'android') {
+        if (deferredPrompt) {
+            text.innerHTML = '📲 點擊安裝到主畫面';
+            btn.textContent = '安裝';
+        } else {
+            text.innerHTML = '📲 Chrome 選單 ⋮ →「安裝應用程式」';
+            btn.textContent = '如何安裝';
+        }
+        btn.style.display = 'block';
+    } else {
+        text.innerHTML = '📲 加入主畫面，離線使用';
+        btn.textContent = '安裝';
+    }
+    banner.classList.add('show');
+}
+
+window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    showInstallBanner();
+});
+
+function handleInstallClick() {
+    if (deferredPrompt) {
+        deferredPrompt.prompt();
+        deferredPrompt.userChoice.then((choice) => {
+            if (choice.outcome === 'accepted') showToast('✅ 已加入主畫面！');
+            deferredPrompt = null;
+            document.getElementById('install-banner').classList.remove('show');
+        });
+    } else if (getPlatform() === 'android') {
+        showModal('Android 安裝方式',
+            '<div style="text-align:left;line-height:1.8;font-size:14px;">' +
+            '<p><strong>方法一：Chrome 選單</strong></p>' +
+            '<p>1. 點擊右上角 <b>⋮</b> 選單</p>' +
+            '<p>2. 選擇「安裝應用程式」或「加入主畫面」</p>' +
+            '<p>3. 確認安裝</p>' +
+            '<br><p><strong>方法二：分享按鈕</strong></p>' +
+            '<p>1. 點擊網址列右側分享圖示</p>' +
+            '<p>2. 選擇「加入主畫面」</p>' +
+            '</div>',
+            ['知道了'], () => closeModal('modal-overlay')
+        );
+    } else {
+        showToast('請用瀏覽器選單「加入主畫面」');
+    }
+}
+
+function dismissInstall() {
+    localStorage.setItem('install-dismissed', 'true');
+    installDismissed = true;
+    document.getElementById('install-banner').classList.remove('show');
+}
+
+window.addEventListener('appinstalled', () => {
+    document.getElementById('install-banner').classList.remove('show');
+    deferredPrompt = null;
+    showToast('🎉 已成功安裝！');
+});
+
+// ==================== 初始化 ====================
+function init() {
+    const saved = localStorage.getItem('camping-checklist');
+    if (saved) {
+        data = JSON.parse(saved);
+        render();
+    } else {
+        loadTemplate('weekend');
+    }
+    const meta = getCustomTemplateMeta();
+    ['custom1','custom2','custom3'].forEach(key => {
+        const opt = document.querySelector(`option[value="${key}"]`);
+        if (opt && meta[key]) opt.textContent = `${meta[key].icon || '📁'} ${meta[key].name}`;
+    });
+    updateCustomTemplateSlots();
+
+    if (!window.matchMedia('(display-mode: standalone)').matches && !window.navigator.standalone) {
+        setTimeout(showInstallBanner, 1500);
+    }
+}
+
+function loadTemplate(key) {
+    if (!key) return;
+    const custom = getCustomTemplates();
+    if (custom[key]) {
+        data.currentTemplate = key;
+        data.categories = custom[key].map((cat, idx) => ({
+            id: Date.now() + idx,
+            icon: cat.icon,
+            name: cat.name,
+            collapsed: false,
+            items: cat.items.map((it, i) => ({
+                id: Date.now() + idx * 100 + i,
+                name: it,
+                checked: false
+            }))
+        }));
+        data.filter = 'all';
+        document.getElementById('template-select').value = '';
+        render();
+        const meta = getCustomTemplateMeta();
+        const name = meta[key]?.name || '自訂模板';
+        showToast(`已載入自訂模板：${name}`);
+        return;
+    }
+    if (!TEMPLATES[key]) return;
+    data.currentTemplate = key;
+    data.categories = TEMPLATES[key].map((cat, idx) => ({
+        id: Date.now() + idx,
+        icon: cat.icon,
+        name: cat.name,
+        collapsed: false,
+        items: cat.items.map((it, i) => ({
+            id: Date.now() + idx * 100 + i,
+            name: it,
+            checked: false
+        }))
+    }));
+    data.filter = 'all';
+    document.getElementById('template-select').value = '';
+    render();
+    showToast(`已載入「${document.querySelector(`option[value="${key}"]`).textContent.split('（')[0]}」模板`);
+}
+
+// ==================== 渲染 ====================
+function render() {
+    const container = document.getElementById('categories-container');
+    container.innerHTML = '';
+
+    const templateDisplay = document.getElementById('current-template-display');
+    const templateName = document.getElementById('template-name');
+    const templateIcon = document.getElementById('template-icon');
+
+    if (data.currentTemplate) {
+        const labels = {
+            weekend: { name: '週末露營', icon: '⛺' },
+            daytrip: { name: '單日野餐', icon: '🧺' },
+            heavy: { name: '重裝登山', icon: '🏔️' },
+            family: { name: '親子露營', icon: '👨‍👩‍👧' },
+            winter: { name: '冬季露營', icon: '❄️' },
+            beach: { name: '海邊露營', icon: '🏖️' }
+        };
+        let info = labels[data.currentTemplate];
+        if (!info) {
+            const meta = getCustomTemplateMeta();
+            const m = meta[data.currentTemplate];
+            info = m ? { name: m.name, icon: m.icon || '📁' } : { name: '自訂模板', icon: '📁' };
+        }
+        templateName.textContent = info.name;
+        templateIcon.textContent = info.icon;
+        templateDisplay.style.display = 'block';
+    } else {
+        templateDisplay.style.display = 'none';
+    }
+
+    let total = 0, checked = 0;
+    data.categories.forEach(cat => {
+        const catChecked = cat.items.filter(i => i.checked).length;
+        const catTotal = cat.items.length;
+        total += catTotal;
+        checked += catChecked;
+
+        let displayItems = cat.items;
+        if (data.filter === 'checked') displayItems = cat.items.filter(i => i.checked);
+        if (data.filter === 'unchecked') displayItems = cat.items.filter(i => !i.checked);
+        if (displayItems.length === 0 && data.filter !== 'all') return;
+
+        const div = document.createElement('div');
+        div.className = 'category' + (cat.collapsed ? ' collapsed' : '');
+        div.innerHTML = `
+            <div class="category-header" onclick="toggleCategory(${cat.id})">
+                <div style="display:flex;align-items:center;gap:10px;">
+                    <div class="category-icon">${cat.icon}</div>
+                    <span class="category-title">${cat.name}</span>
+                </div>
+                <div style="display:flex;align-items:center;gap:8px;">
+                    <span class="category-count">${catChecked}/${catTotal}</span>
+                    <span class="category-toggle">▼</span>
+                </div>
+            </div>
+            <div class="category-body">
+                ${displayItems.map(item => `
+                    <div class="item ${item.checked ? 'checked' : ''}" data-id="${item.id}">
+                        <div class="item-check ${item.checked ? 'pop' : ''}" onclick="toggleItem(${cat.id}, ${item.id}, this)"></div>
+                        <div class="item-name">${item.name}</div>
+                        <div class="item-delete" onclick="deleteItem(${cat.id}, ${item.id}, event)">✕</div>
+                    </div>
+                `).join('')}
+                <div class="add-item-row">
+                    <input type="text" class="add-item-input" placeholder="新增物品..." 
+                        onkeydown="if(event.key==='Enter')addItemFromInput(${cat.id},this)">
+                    <button class="add-item-btn" onclick="addItemFromInput(${cat.id}, this.previousElementSibling)">新增</button>
+                </div>
+            </div>
+        `;
+        container.appendChild(div);
+    });
+
+    document.getElementById('checked-count').textContent = checked;
+    document.getElementById('total-count').textContent = total;
+    const pct = total > 0 ? Math.round(checked / total * 100) : 0;
+    document.getElementById('progress-bar').style.width = pct + '%';
+
+    const status = document.getElementById('progress-status');
+    if (pct === 0) status.textContent = '開始打包吧！';
+    else if (pct < 30) status.textContent = '加油，才剛開始呢！';
+    else if (pct < 60) status.textContent = '已經過半了，繼續加油！';
+    else if (pct < 90) status.textContent = '快完成了，再檢查一下！';
+    else if (pct < 100) status.textContent = '就差一點點，衝刺！';
+    else status.textContent = '🎉 所有裝備就緒，出發露營！';
+
+    document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+    const chips = document.querySelectorAll('.chip');
+    if (data.filter === 'all') chips[0].classList.add('active');
+    if (data.filter === 'unchecked') chips[1].classList.add('active');
+    if (data.filter === 'checked') chips[2].classList.add('active');
+}
+
+// ==================== 互動功能 ====================
+function toggleCategory(catId) {
+    const cat = data.categories.find(c => c.id === catId);
+    if (cat) { cat.collapsed = !cat.collapsed; render(); }
+}
+
+function toggleItem(catId, itemId, el) {
+    const cat = data.categories.find(c => c.id === catId);
+    const item = cat.items.find(i => i.id === itemId);
+    if (item) {
+        item.checked = !item.checked;
+        el.classList.add('pop');
+        setTimeout(() => el.classList.remove('pop'), 200);
+        render();
+        quickSave();
+        if (item.checked) {
+            const allChecked = cat.items.every(i => i.checked);
+            if (allChecked) showToast(`✅ ${cat.name} 已備齊！`);
+        }
+    }
+}
+
+function addItemFromInput(catId, input) {
+    const name = input.value.trim();
+    if (!name) return;
+    const cat = data.categories.find(c => c.id === catId);
+    cat.items.push({ id: Date.now() + Math.random(), name: name, checked: false });
+    input.value = '';
+    render();
+    quickSave();
+    showToast('已新增物品');
+}
+
+function deleteItem(catId, itemId, e) {
+    e.stopPropagation();
+    const cat = data.categories.find(c => c.id === catId);
+    cat.items = cat.items.filter(i => i.id !== itemId);
+    render();
+    quickSave();
+    showToast('已刪除');
+}
+
+function showAddCategory() {
+    selectedIcon = '📦';
+    document.querySelectorAll('.icon-option').forEach(el => el.classList.remove('active'));
+    document.querySelector('.icon-option[data-icon="📦"]').classList.add('active');
+    document.getElementById('modal-cat').classList.add('show');
+    document.getElementById('cat-input').value = '';
+    setTimeout(() => document.getElementById('cat-input').focus(), 100);
+}
+
+function selectIcon(el) {
+    document.querySelectorAll('.icon-option').forEach(e => e.classList.remove('active'));
+    el.classList.add('active');
+    selectedIcon = el.dataset.icon;
+}
+
+function confirmAddCategory() {
+    const name = document.getElementById('cat-input').value.trim();
+    if (!name) return;
+    data.categories.push({
+        id: Date.now(),
+        icon: selectedIcon,
+        name: name,
+        collapsed: false,
+        items: []
+    });
+    closeModal('modal-cat');
+    render();
+    showToast('已新增分類：' + selectedIcon + ' ' + name);
+    quickSave();
+}
+
+function closeModal(id) {
+    document.getElementById(id).classList.remove('show');
+}
+
+function filterView(type) {
+    data.filter = type;
+    render();
+}
+
+function expandAll() {
+    data.categories.forEach(c => c.collapsed = false);
+    render();
+    showToast('已展開全部');
+}
+
+function collapseAll() {
+    data.categories.forEach(c => c.collapsed = true);
+    render();
+    showToast('已收合全部');
+}
+
+function resetAll() {
+    if (!confirm('確定要取消所有勾選嗎？')) return;
+    data.categories.forEach(cat => { cat.items.forEach(i => i.checked = false); });
+    render();
+    showToast('已重置所有項目');
+    quickSave();
+}
+
+function quickSave() {
+    localStorage.setItem('camping-checklist', JSON.stringify(data));
+}
+
+function saveData() {
+    localStorage.setItem('camping-checklist', JSON.stringify(data));
+    showToast('💾 已儲存到本地');
+}
+
+// ==================== 模板功能 ====================
+function showSaveTemplate() {
+    updateCustomTemplateSlots();
+    document.getElementById('modal-save-template').classList.add('show');
+}
+
+function updateCustomTemplateSlots() {
+    const custom = getCustomTemplates();
+    const meta = getCustomTemplateMeta();
+    [['custom1',1],['custom2',2],['custom3',3]].forEach(([key, num]) => {
+        const slot = custom[key];
+        const slotMeta = meta[key];
+        const iconEl = document.getElementById('slot-icon-' + num);
+        const nameEl = document.getElementById('slot-name-' + num);
+        const statusEl = document.getElementById('slot-status-' + num);
+        if (slot) {
+            iconEl.textContent = slotMeta?.icon || slot[0]?.icon || '📁';
+            nameEl.textContent = slotMeta?.name || (slot[0]?.name ? slot[0].name + '等' : '自訂模板' + num);
+            statusEl.textContent = slot.length + '個分類';
+            statusEl.classList.add('saved');
+        } else {
+            iconEl.textContent = '📁';
+            nameEl.textContent = '自訂模板' + num;
+            statusEl.textContent = '空';
+            statusEl.classList.remove('saved');
+        }
+    });
+}
+
+function prepareSaveSlot(key) {
+    currentEditSlot = key;
+    const meta = getCustomTemplateMeta();
+    const slotMeta = meta[key];
+    const custom = getCustomTemplates();
+    const slot = custom[key];
+    selectedTemplateIcon = slotMeta?.icon || slot?.[0]?.icon || '⛺';
+    const defaultName = slotMeta?.name || (slot?.[0]?.name ? slot[0].name + '等' : '自訂模板');
+    document.querySelectorAll('#template-icon-picker .icon-option').forEach(el => {
+        el.classList.toggle('active', el.dataset.icon === selectedTemplateIcon);
+    });
+    document.getElementById('template-name-input').value = defaultName;
+    closeModal('modal-save-template');
+    document.getElementById('modal-edit-template').classList.add('show');
+    setTimeout(() => document.getElementById('template-name-input').focus(), 100);
+}
+
+function selectTemplateIcon(el) {
+    document.querySelectorAll('#template-icon-picker .icon-option').forEach(e => e.classList.remove('active'));
+    el.classList.add('active');
+    selectedTemplateIcon = el.dataset.icon;
+}
+
+function confirmSaveTemplate() {
+    const name = document.getElementById('template-name-input').value.trim();
+    if (!name) { showToast('請輸入模板名稱'); return; }
+    const templateData = data.categories.map(cat => ({
+        icon: cat.icon,
+        name: cat.name,
+        items: cat.items.map(it => it.name)
+    }));
+    setCustomTemplate(currentEditSlot, templateData, { name: name, icon: selectedTemplateIcon });
+    const option = document.querySelector(`option[value="${currentEditSlot}"]`);
+    if (option) option.textContent = `${selectedTemplateIcon} ${name}`;
+    closeModal('modal-edit-template');
+    showToast(`✅ 已儲存為「${name}」！`);
+}
+
+// ==================== UI工具 ====================
+function showToast(msg) {
+    const toast = document.getElementById('toast');
+    toast.textContent = msg;
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 2000);
+}
+
+function showModal(title, text, buttons, callback) {
+    document.getElementById('modal-title').textContent = title;
+    document.getElementById('modal-text').innerHTML = text;
+    const btns = document.getElementById('modal-buttons');
+    btns.innerHTML = '';
+    buttons.forEach(b => {
+        const btn = document.createElement('button');
+        btn.className = 'modal-btn' + (b === '確定' ? ' primary' : '');
+        btn.textContent = b;
+        btn.onclick = () => callback && callback(b);
+        btns.appendChild(btn);
+    });
+    document.getElementById('modal-overlay').classList.add('show');
+}
+
+// 點擊彈窗背景關閉
+document.querySelectorAll('.modal-overlay').forEach(m => {
+    m.addEventListener('click', e => { if (e.target === m) m.classList.remove('show'); });
+});
+
+// 鍵盤支援
+document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') document.querySelectorAll('.modal-overlay').forEach(m => m.classList.remove('show'));
+});
+
+// 啟動
+init();
+</script>
+</body>
+</html>
